@@ -4,26 +4,26 @@
 
 using namespace std;
 
-int solve(vector<string> v, bool swap, int i = 0) {
-    if (v.size() == 1) return stoi(v[0], nullptr, 2);
+int solve(vector<int> v, bool swap, int s) {
+    if (v.size() == 1) return v[0];
 
-    vector<string> z, o;
+    vector<int> z, o;
 
-    for (int j = 0; j < v.size(); j++) {
-        if (v[j][i] == '0')
-            z.push_back(v[j]);
-        else
-            o.push_back(v[j]);
-    }
+    for (int j = 0; j < v.size(); j++)
+        (((v[j] >> s) & 1) ? o : z).push_back(v[j]);
 
-    return solve((o.size() >= z.size()) ^ swap ? z : o, swap, i + 1);
+    return solve((o.size() >= z.size()) != swap ? z : o, swap, s - 1);
 }
 
 int main() {
-    vector<string> all;
+    vector<int> all;
     string in;
 
-    while (cin >> in) all.push_back(in);
+    cin >> in;
+    int s = in.size() - 1;
 
-    cout << solve(all, false) * solve(all, true) << endl;
+    do all.push_back(stoi(in, nullptr, 2));
+    while (cin >> in);
+
+    cout << solve(all, false, s) * solve(all, true, s) << endl;
 }
