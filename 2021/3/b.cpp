@@ -16,7 +16,7 @@ int solve(vector<string> v, bool swap, int i = 0) {
             o.push_back(v[j]);
     }
 
-    return solve((o.size() >= z.size()) ^ !swap ? o : z, swap, i + 1);
+    return solve((o.size() >= z.size()) ^ swap ? z : o, swap, i + 1);
 }
 
 int main() {
