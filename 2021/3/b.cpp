@@ -12,7 +12,10 @@ int solve(vector<int> v, bool swap, int s) {
     for (int j = 0; j < v.size(); j++)
         (((v[j] >> s) & 1) ? o : z).push_back(v[j]);
 
-    return solve((o.size() >= z.size()) != swap ? z : o, swap, s - 1);
+    if (swap)
+        return solve(o.size() >= z.size() ? z : o, swap, s - 1);
+    else
+        return solve(o.size() >= z.size() ? o : z, swap, s - 1);
 }
 
 int main() {
